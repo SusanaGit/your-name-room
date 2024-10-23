@@ -7,6 +7,7 @@ import com.susanafigueroa.yournameroom.data.Users
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 
@@ -33,7 +34,7 @@ class YourNameRoomViewModel(
 
         viewModelScope.launch {
 
-            val existsUser = users.getUserStream(1)
+            val existsUser = users.getUserStream(1).firstOrNull()
 
             if (existsUser == null) {
                 val user = User(1, newName)
