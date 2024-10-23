@@ -2,7 +2,7 @@ package com.susanafigueroa.yournameroom.data
 
 import kotlinx.coroutines.flow.Flow
 
-interface UsersRepository {
+interface Users {
 
     fun getUserStream(id: Int): Flow<User?>
 

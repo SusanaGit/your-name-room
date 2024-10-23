@@ -1,12 +1,10 @@
 package com.susanafigueroa.yournameroom.ui.home
 
 import androidx.lifecycle.ViewModel
-import com.susanafigueroa.yournameroom.data.UserDao
+import com.susanafigueroa.yournameroom.data.Users
 
-class YouwNameRoomViewModel(
-    private val userDao: UserDao
+class YourNameRoomViewModel(
+    private val users: Users
 ): ViewModel() {
-
-
 
 }
