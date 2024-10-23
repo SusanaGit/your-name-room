@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +35,15 @@ fun YourNameRoomApp(
     viewModel: YourNameRoomViewModel = viewModel( factory = AppViewModelProvider.Factory )
 ) {
 
-    val userName by viewModel.userName.collectAsState()
+    val currentUserName by viewModel.userName.collectAsState()
+
+    var newName by remember { mutableStateOf(currentUserName) }
+
+    LaunchedEffect(key1 = currentUserName) {
+        if(currentUserName.isNotEmpty()) {
+            newName = currentUserName
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -50,8 +59,6 @@ fun YourNameRoomApp(
             )
         }
     ) { contentPadding ->
-        var newNameUser by remember { mutableStateOf(userName) }
-
         Column(
             modifier = Modifier
                 .padding(contentPadding)
@@ -61,9 +68,9 @@ fun YourNameRoomApp(
         ) {
 
             TextField(
-                value = newNameUser,
-                onValueChange = {
-                    newNameUser = it
+                value = newName,
+                onValueChange = { newNameValue ->
+                    newName = newNameValue
                 },
                 label = {
                     Text(stringResource(R.string.enter_your_name))
@@ -74,7 +81,9 @@ fun YourNameRoomApp(
 
             Button(
                 onClick = {
-
+                    newName?.let {
+                        viewModel.saveUser(it)
+                    }
                 }
             ) {
                 Text(stringResource(R.string.save))
