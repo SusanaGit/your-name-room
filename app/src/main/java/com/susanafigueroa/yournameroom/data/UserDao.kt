@@ -16,7 +16,7 @@ interface UserDao {
     @Update
     suspend fun update(user: User)
 
-    @Query("SELECT name from users WHERE id = 1")
-    fun getUser(id: Int): Flow<User>
+    @Query("SELECT name from users WHERE id = :id")
+    fun getUser(id: Int): Flow<User?>
 
 }
