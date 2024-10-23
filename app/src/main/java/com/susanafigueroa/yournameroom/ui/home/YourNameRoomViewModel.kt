@@ -30,9 +30,18 @@ class YourNameRoomViewModel(
     }
 
     fun saveUser(newName: String) {
+
         viewModelScope.launch {
-            val user = User(1, newName)
-            users.insertUser(user)
+
+            val existsUser = users.getUserStream(1)
+
+            if (existsUser == null) {
+                val user = User(1, newName)
+                users.insertUser(user)
+            } else {
+                val updatedUser = User(1, newName)
+                users.updateUser(updatedUser)
+            }
             _userName.value = newName
         }
     }
