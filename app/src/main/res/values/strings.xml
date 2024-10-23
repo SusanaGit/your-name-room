@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Your Name Room</string>
+    <string name="your_name_room_app">Your Name Room App</string>
+    <string name="save">Save</string>
 </resources>
